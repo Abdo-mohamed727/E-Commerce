@@ -1,0 +1,124 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_new/models/peoduct_item_model.dart';
+import 'package:ecommerce_new/utils/app_routes.dart';
+import 'package:ecommerce_new/view_models/home_cubit/home_cubit.dart';
+import 'package:ecommerce_new/widgets/product_item.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+
+class HomeTabview extends StatelessWidget {
+  const HomeTabview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<HomeCubit>(context);
+    return BlocBuilder<HomeCubit, HomeState>(
+      bloc: cubit,
+      buildWhen: (previous, current) =>
+          current is Homeloaded ||
+          current is Homeloading ||
+          current is HomeError,
+      builder: (context, state) {
+        if (state is Homeloading) {
+          return const Center(
+            child: CircularProgressIndicator.adaptive(),
+          );
+        } else if (state is Homeloaded) {
+          return RefreshIndicator(
+            onRefresh: () async => await cubit.getproducts(),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  FlutterCarousel.builder(
+                    itemCount: state.carouselItem.length,
+                    itemBuilder: (BuildContext context, int itemIndex,
+                            int pageViewIndex) =>
+                        Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: CachedNetworkImage(
+                          imageUrl: state.carouselItem[itemIndex].imgUrl,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator.adaptive(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    options: FlutterCarouselOptions(
+                      height: 200,
+                      autoPlay: true,
+                      showIndicator: true,
+                      slideIndicator: CircularWaveSlideIndicator(),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'New Arrivals',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        Text(
+                          "See all",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: state.productItem.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 0.8,
+                    ),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () => Navigator.of(context, rootNavigator: true)
+                            .pushNamed(
+                          AppRouts.ProductDetailsroute,
+                          arguments: state.productItem[index].id,
+                        ),
+                        child: ProductItem(
+                          prodectitem: state.productItem[index],
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        } else if (state is HomeError) {
+          return Center(
+            child: Text(
+              state.Message,
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+            ),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+}

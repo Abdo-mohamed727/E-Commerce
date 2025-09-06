@@ -1,0 +1,66 @@
+name: ecommerce_new
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+
+environment:
+  sdk: ^3.6.1
+
+dependencies:
+  cached_network_image: ^3.4.1
+  cupertino_icons: ^1.0.8
+
+  adaptive_theme: ^3.7.1+2
+  flutter:
+    sdk: flutter
+  flutter_carousel_widget: ^3.1.0
+  persistent_bottom_nav_bar_v2: ^6.1.0
+  bloc: ^8.1.2
+  flutter_bloc: ^8.1.3
+  flutter_dash: ^1.0.0
+  flutter_native_splash: ^2.4.6
+  firebase_core: ^4.0.0
+  firebase_auth: ^6.0.0
+  google_sign_in: ^6.1.5
+  flutter_facebook_auth: ^7.1.2
+  cloud_firestore: ^6.0.0
+
+  firebase_messaging: ^16.0.0
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/profile.jpg
+    - assets/splashh.jpg
+
+
+
+
+flutter_native_splash:
+  color: "#3AB0FF"
+  image: assets/splashh.jpg
+
+
+  android_12:
+color: "#3AB0FF"
+image: assets/splashh.jpg
+#App icon background color.
+icon_background_color: "#111111"
+
+  
