@@ -1,3 +1,4 @@
+import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutHeadlinesItems extends StatelessWidget {
@@ -15,9 +16,10 @@ class CheckoutHeadlinesItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(vertical: size.height * .01),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -29,11 +31,11 @@ class CheckoutHeadlinesItems extends StatelessWidget {
               ),
               if (numofproducts != null)
                 Padding(
-                  padding: const EdgeInsets.only(left: 4.0),
+                  padding: EdgeInsets.only(left: size.width * .01),
                   child: Text(
                     '($numofproducts)',
                     style: theme.textTheme.labelLarge?.copyWith(
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: Appcolors.grey,
                     ),
                   ),
                 ),
@@ -45,7 +47,7 @@ class CheckoutHeadlinesItems extends StatelessWidget {
               child: Text(
                 'Edit',
                 style: theme.textTheme.labelLarge?.copyWith(
-                  color: theme.colorScheme.primary,
+                  color: Appcolors.primary,
                 ),
               ),
             ),

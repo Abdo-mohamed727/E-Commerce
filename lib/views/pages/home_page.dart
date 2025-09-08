@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final size = MediaQuery.of(context).size;
 
     return SafeArea(
       child: Padding(
@@ -30,8 +31,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: Column(
           children: [
             TabBar(
-              unselectedLabelColor:
-                  Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
               labelColor: Theme.of(context).colorScheme.primary,
               controller: _tabController,
               tabs: const [
@@ -39,7 +38,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Tab(text: "Category"),
               ],
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: size.height * .02),
             Expanded(
               child: TabBarView(
                 controller: _tabController,

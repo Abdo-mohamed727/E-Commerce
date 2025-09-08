@@ -1,4 +1,3 @@
-
 class PaymentCardModel {
   final String id;
   final String cardNumber;
@@ -46,12 +45,12 @@ class PaymentCardModel {
 
   factory PaymentCardModel.fromMap(Map<String, dynamic> map) {
     return PaymentCardModel(
-      id: map['id'] as String,
-      cardNumber: map['cardNumber'] as String,
-      cardHolderName: map['cardHolderName'] as String,
-      expiryDate: map['expiryDate'] as String,
-      cvv: map['cvv'] as String,
-      isChosen: map['isChosen'] as bool,
+      id: map['id'] ?? '',
+      cardNumber: map['cardNumber'] ?? '',
+      cardHolderName: map['cardHolderName'] ?? '',
+      expiryDate: map['expiryDate'] ?? '',
+      cvv: map['cvv'] ?? '',
+      isChosen: map['isChosen'] ?? false,
     );
   }
 }

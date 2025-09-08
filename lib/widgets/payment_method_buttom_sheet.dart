@@ -141,7 +141,7 @@ class PaymentMethodButtomSheet extends StatelessWidget {
                 return MainButton(
                   title: 'Confirm Payment',
                   ontap: () {
-                    paymentcubit.confirmpaymentmethod();
+                    paymentcubit.confirmPaymentMethod();
                   },
                 );
               },

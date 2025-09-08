@@ -18,12 +18,16 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _check = false;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final cubit = BlocProvider.of<AuthCubit>(context);
     final themecubit = BlocProvider.of<ThemeCubit>(context);
     return SafeArea(
       child: Scaffold(
           body: Padding(
-        padding: const EdgeInsets.only(top: 24, right: 8, left: 8),
+        padding: EdgeInsets.only(
+            top: size.height * .02,
+            right: size.width * .01,
+            left: size.width * .01),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -33,15 +37,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   backgroundImage: AssetImage('assets/profile.jpg'),
                 ),
               ),
-              const SizedBox(
-                height: 8,
+              SizedBox(
+                height: size.height * .02,
               ),
               Text(
                 'Abdo Mhmd',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               SizedBox(
-                height: 32,
+                height: size.height * .02,
               ),
               ListView(
                 shrinkWrap: true,
@@ -54,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ontap: () {},
                   ),
                   SizedBox(
-                    height: 24,
+                    height: size.height * .02,
                   ),
                   Properitesofprofilepage(
                       sufexicon: Icons.chevron_right,
@@ -62,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: 'Notifications',
                       ontap: () {}),
                   SizedBox(
-                    height: 24,
+                    height: size.height * .02,
                   ),
                   Properitesofprofilepage(
                       sufexicon: Icons.arrow_drop_down_outlined,
@@ -75,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             : themecubit.selectTheme(ThemeModeState.dark);
                       }),
                   SizedBox(
-                    height: 24,
+                    height: size.height * .02,
                   ),
                   Properitesofprofilepage(
                       sufexicon: Icons.chevron_right,
@@ -85,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               SizedBox(
-                height: 16,
+                height: size.height * .02,
               ),
               BlocConsumer<AuthCubit, AuthState>(
                 bloc: cubit,
@@ -99,7 +103,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(state.message)));
                   }
-                  // TODO: implement listener
                 },
                 buildWhen: (previous, current) => current is AuthLogingout,
                 builder: (context, state) {

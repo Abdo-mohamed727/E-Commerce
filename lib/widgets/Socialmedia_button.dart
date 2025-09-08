@@ -18,6 +18,7 @@ class SocialmediaButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
 
     return InkWell(
       onTap: ontap,
@@ -25,7 +26,7 @@ class SocialmediaButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: theme.colorScheme.outline, // بدل Appcolors.grey2
+            color: theme.colorScheme.outline,
           ),
         ),
         child: Padding(
@@ -37,10 +38,10 @@ class SocialmediaButton extends StatelessWidget {
                   children: [
                     CachedNetworkImage(
                       imageUrl: imgurl!,
-                      height: 50,
-                      width: 50,
+                      height: size.height * .05,
+                      width: size.width * .09,
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: size.width * .05),
                     Text(
                       text!,
                       style: theme.textTheme.titleMedium,

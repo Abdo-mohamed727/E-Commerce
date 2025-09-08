@@ -26,7 +26,7 @@ class CheckoutPage extends StatelessWidget {
         onTapped: () {
           showModalBottomSheet(
             context: context,
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: Appcolors.grey,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
@@ -44,7 +44,7 @@ class CheckoutPage extends StatelessWidget {
                 ),
               );
             },
-          ).then((_) async {
+          ).then((value) async {
             await checkoutCubit.getcartitems();
           });
         },
@@ -99,6 +99,7 @@ class CheckoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -138,7 +139,7 @@ class CheckoutPage extends StatelessWidget {
                   final chosenLocation = state.chosenlocation;
 
                   return SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .03),
                     child: SafeArea(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +153,7 @@ class CheckoutPage extends StatelessWidget {
                             },
                           ),
                           _buildLocationItem(chosenLocation, context),
-                          const SizedBox(height: 16),
+                          SizedBox(height: size.height * .02),
                           CheckoutHeadlinesItems(
                             title: 'Products',
                             numofproducts: state.numsofproducts,
@@ -172,19 +173,17 @@ class CheckoutPage extends StatelessWidget {
                                 children: [
                                   DecoratedBox(
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .surfaceVariant,
+                                      color: Appcolors.grey2,
                                       borderRadius: BorderRadius.circular(16),
                                     ),
                                     child: CachedNetworkImage(
                                       imageUrl: cartItem.Product.imgurl,
-                                      height: 120,
-                                      width: 120,
+                                      height: size.height * .13,
+                                      width: size.width * .3,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  const SizedBox(width: 16),
+                                  SizedBox(width: size.width * .03),
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
@@ -196,7 +195,7 @@ class CheckoutPage extends StatelessWidget {
                                               .textTheme
                                               .titleMedium,
                                         ),
-                                        const SizedBox(height: 4),
+                                        SizedBox(height: size.height * .01),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -239,10 +238,10 @@ class CheckoutPage extends StatelessWidget {
                               );
                             },
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: size.height * .02),
                           CheckoutHeadlinesItems(title: 'Payment'),
                           _buildPaymentMethodItem(chosenPaymentCard, context),
-                          Divider(color: Theme.of(context).dividerColor),
+                          Divider(color: Appcolors.grey),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -259,7 +258,7 @@ class CheckoutPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: size.height * .02),
                           SizedBox(
                             height: 50,
                             width: double.infinity,

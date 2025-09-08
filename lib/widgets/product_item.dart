@@ -24,9 +24,8 @@ class ProductItem extends StatelessWidget {
               height: size.height * .15,
               width: size.width * 0.4,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: theme.colorScheme.surfaceVariant,
-              ),
+                  borderRadius: BorderRadius.circular(16),
+                  color: Appcolors.grey2),
               child: CachedNetworkImage(
                 imageUrl: prodectitem.imgurl,
                 placeholder: (context, url) =>
@@ -37,8 +36,8 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 4,
-              right: 4,
+              top: size.height * .011,
+              right: size.width * .02,
               child: DecoratedBox(
                 decoration: const BoxDecoration(shape: BoxShape.circle),
                 child: BlocBuilder<HomeCubit, HomeState>(
@@ -61,6 +60,7 @@ class ProductItem extends StatelessWidget {
                         onTap: () async =>
                             await cubit.setfavourite(prodectitem),
                         child: Icon(
+                          size: 30,
                           state.isfavourite
                               ? Icons.favorite
                               : Icons.favorite_outline,
@@ -79,6 +79,7 @@ class ProductItem extends StatelessWidget {
                     return InkWell(
                       onTap: () async => await cubit.setfavourite(prodectitem),
                       child: Icon(
+                        size: 30,
                         prodectitem.isFavorite
                             ? Icons.favorite
                             : Icons.favorite_border,
@@ -93,7 +94,7 @@ class ProductItem extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: size.height * 0.02),
+        SizedBox(height: size.height * 0.01),
         Expanded(
           child: Column(
             children: [
@@ -112,25 +113,26 @@ class ProductItem extends StatelessWidget {
                       style: theme.textTheme.labelMedium!
                           .copyWith(color: theme.hintColor),
                     ),
-                    SizedBox(width: size.width * .08),
+                    SizedBox(width: size.width * .09),
                     Text(
                       prodectitem.averageRate.toString(),
-                      style: theme.textTheme.labelLarge!
-                          .copyWith(color: theme.colorScheme.primary),
+                      style: theme.textTheme.labelLarge!.copyWith(
+                          color: Appcolors.primary,
+                          fontWeight: FontWeight.bold),
                     ),
                     Icon(
                       Icons.star,
-                      color: theme.colorScheme.secondary,
+                      color: Appcolors.yellow,
                       size: 15,
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: EdgeInsets.only(bottom: size.height * .01),
                 child: Text(
                   '\$${prodectitem.price}',
-                  style: theme.textTheme.titleSmall,
+                  style: theme.textTheme.titleMedium,
                 ),
               ),
             ],

@@ -1,3 +1,4 @@
+import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:ecommerce_new/view_models/chosen_location/chosen_location_cubit.dart';
 import 'package:ecommerce_new/widgets/location_item_widget.dart';
 import 'package:ecommerce_new/widgets/main_button.dart';
@@ -17,7 +18,7 @@ class _ChosenAddressPageState extends State<ChosenAddressPage> {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<ChosenLocationCubit>(context);
-    final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -32,17 +33,20 @@ class _ChosenAddressPageState extends State<ChosenAddressPage> {
               children: [
                 Text(
                   'Chosse Your Location',
-                  style: theme.textTheme.titleLarge!
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: size.height * .01),
                 Text(
                   'Let\'s find an unforgettable event. Chosse a location below to get started',
-                  style: theme.textTheme.titleSmall!.copyWith(
-                    color: theme.textTheme.bodySmall?.color?.withOpacity(0.7),
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .copyWith(color: Appcolors.grey),
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: size.height * .04),
                 TextField(
                   controller: lcationcontroler,
                   decoration: InputDecoration(
@@ -87,26 +91,23 @@ class _ChosenAddressPageState extends State<ChosenAddressPage> {
                       },
                     ),
                     hintText: 'Add your location',
-                    prefixIconColor: theme.iconTheme.color,
-                    suffixIconColor: theme.iconTheme.color,
-                    fillColor: theme.colorScheme.surfaceVariant,
                     filled: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
-                      borderSide:
-                          BorderSide(color: theme.dividerColor, width: 1.2),
+                      borderSide: BorderSide(color: Appcolors.grey, width: 1.2),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide(
-                          color: theme.colorScheme.error, width: 1.2),
+                      borderSide: BorderSide(color: Appcolors.grey, width: 1.2),
                     ),
                   ),
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: size.height * .04),
                 Text(
                   'Select Location',
-                  style: theme.textTheme.titleMedium!
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 BlocBuilder<ChosenLocationCubit, ChosenLocationState>(
@@ -145,8 +146,8 @@ class _ChosenAddressPageState extends State<ChosenAddressPage> {
                                     location: location,
                                     bordercolor:
                                         chosenlocation.id == location.id
-                                            ? theme.colorScheme.primary
-                                            : theme.dividerColor,
+                                            ? Appcolors.primary
+                                            : Appcolors.grey,
                                   );
                                 }
                                 return LocationItemWidget(
@@ -154,7 +155,7 @@ class _ChosenAddressPageState extends State<ChosenAddressPage> {
                                     cubit.Selectedocation(location.id);
                                   },
                                   location: location,
-                                  bordercolor: theme.dividerColor,
+                                  bordercolor: Appcolors.grey,
                                 );
                               },
                             ),
@@ -164,14 +165,14 @@ class _ChosenAddressPageState extends State<ChosenAddressPage> {
                     } else if (state is FetchinglocationFailure) {
                       return Center(
                         child: Text(state.errormessage,
-                            style: theme.textTheme.bodyMedium),
+                            style: Theme.of(context).textTheme.bodyMedium),
                       );
                     } else {
                       return const SizedBox.shrink();
                     }
                   },
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: size.height * .02),
                 BlocBuilder<ChosenLocationCubit, ChosenLocationState>(
                   bloc: cubit,
                   buildWhen: (previous, current) =>

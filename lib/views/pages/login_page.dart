@@ -22,18 +22,19 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<AuthCubit>(context);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: size.width * .05),
         child: Form(
           key: formkey,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 50,
+                SizedBox(
+                  height: size.height * .06,
                 ),
                 Text(
                   'Login Account',
@@ -47,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                       .copyWith(color: Appcolors.grey),
                 ),
                 SizedBox(
-                  height: 24,
+                  height: size.height * .05,
                 ),
                 LabelWithTextfield(
                   label: 'Email',
@@ -55,8 +56,8 @@ class _LoginPageState extends State<LoginPage> {
                   prefixicon: Icons.email,
                   hinttext: 'Enter your Email',
                 ),
-                const SizedBox(
-                  height: 24,
+                SizedBox(
+                  height: size.height * .04,
                 ),
                 LabelWithTextfield(
                     label: 'Password',
@@ -78,8 +79,8 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {},
                   ),
                 ),
-                const SizedBox(
-                  height: 36,
+                SizedBox(
+                  height: size.height * .04,
                 ),
                 BlocConsumer<AuthCubit, AuthState>(
                   bloc: cubit,
@@ -116,8 +117,8 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   },
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: size.height * .03,
                 ),
                 Align(
                   alignment: Alignment.center,
@@ -143,8 +144,8 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: size.height * .03,
                 ),
                 BlocConsumer<AuthCubit, AuthState>(
                   bloc: cubit,
@@ -179,8 +180,8 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   },
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: size.height * .03,
                 ),
                 BlocConsumer<AuthCubit, AuthState>(
                   bloc: cubit,

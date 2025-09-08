@@ -29,12 +29,18 @@ class MainButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: ontap,
         child: islooding
-            ? const Center(
+            ? Center(
                 child: CircularProgressIndicator.adaptive(),
               )
-            : Text(title!),
+            : Text(
+                title!,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: Appcolors.white),
+              ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Appcolors.blue,
+          backgroundColor: Appcolors.primary,
           foregroundColor: Forgroundcolor,
         ),
       ),

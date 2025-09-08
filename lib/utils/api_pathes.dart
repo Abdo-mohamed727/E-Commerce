@@ -7,7 +7,7 @@ class ApiPathes {
   static String Location(String userID, String LocationId) =>
       'users/$userID/Locations/$LocationId';
   static String Locations(String userID) => 'users/$userID/Locations/';
-  static String paymentcards(String userID) => 'users/$userID/paymentcards/';
+  static String paymentcards(String userID) => 'users/$userID/paymentcards';
   static String cartitems(String userID) => 'users/$userID/cartitem/';
   static String Favouriteproduct(String userID, String productId) =>
       'users/$userID/favourites/$productId';

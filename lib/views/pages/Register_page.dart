@@ -33,6 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<AuthCubit>(context);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -41,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 50),
+                SizedBox(height: size.height * .05),
                 Text(
                   'Create Account',
                   style: Theme.of(context).textTheme.titleLarge,
@@ -53,21 +54,21 @@ class _RegisterPageState extends State<RegisterPage> {
                       .labelLarge!
                       .copyWith(color: Appcolors.grey),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: size.height * .04),
                 LabelWithTextfield(
                   label: 'Username',
                   controler: usernamecontroller,
                   prefixicon: Icons.person,
                   hinttext: 'Enter your username',
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: size.height * .03),
                 LabelWithTextfield(
                   label: 'Email',
                   controler: emailcontroller,
                   prefixicon: Icons.email,
                   hinttext: 'Enter your Email',
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: size.height * .03),
                 LabelWithTextfield(
                   label: 'Password',
                   controler: passwordcontroller,
@@ -94,7 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     onPressed: () {},
                   ),
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: size.height * .04),
                 BlocConsumer<AuthCubit, AuthState>(
                   bloc: cubit,
                   listenWhen: (previous, current) =>
@@ -128,7 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     );
                   },
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: size.height * .02),
                 Align(
                   alignment: Alignment.center,
                   child: Column(
@@ -152,7 +153,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: size.height * .02),
                 BlocConsumer<AuthCubit, AuthState>(
                   bloc: cubit,
                   listenWhen: (previous, current) =>
@@ -182,7 +183,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     );
                   },
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: size.height * .02),
                 SocialmediaButton(
                   text: 'Sign up with Facebook',
                   imgurl:

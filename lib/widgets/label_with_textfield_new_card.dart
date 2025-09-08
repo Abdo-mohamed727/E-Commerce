@@ -1,3 +1,4 @@
+import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class LabelWithTextfield extends StatefulWidget {
@@ -46,11 +47,11 @@ class _LabelWithTextfieldState extends State<LabelWithTextfield> {
             suffixIcon: widget.suffixicon,
             prefixIcon: Icon(widget.prefixicon,
                 color: theme.colorScheme.onSurfaceVariant),
-            fillColor: theme.colorScheme.surfaceVariant, // بدل grey2
+            fillColor: Appcolors.grey2, // بدل grey2
             filled: true,
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(color: theme.colorScheme.error), // بدل red
+              borderSide: BorderSide(color: Appcolors.red), // بدل red
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
@@ -58,7 +59,7 @@ class _LabelWithTextfieldState extends State<LabelWithTextfield> {
             ),
             hintText: widget.hinttext,
             hintStyle: theme.textTheme.bodyMedium!.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
+              color: Appcolors.grey2,
             ),
           ),
         ),

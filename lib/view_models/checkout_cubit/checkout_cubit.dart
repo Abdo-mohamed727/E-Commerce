@@ -21,37 +21,31 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     try {
       final currentuser = authservices.currentuser();
       final cartitems = await cartservices.fetchcartitems(currentuser!.uid);
+
       final subtotal = cartitems.fold<double>(
           0,
           (previousvalue, element) =>
               previousvalue + (element.Product.price * element.quantity));
       final numofproducts = cartitems.fold<int>(
           0, (prevoiusvalue, element) => prevoiusvalue + element.quantity);
-      // final chosenpaymentcard =
-      //     (await checkoutservices.fetchpaymentcards(currentuser.uid, true))
-      //         .first;
-      // print(" Payment Cards List: $chosenpaymentcard");
 
-      // final chosenlocation =
-      //     (await locationservices.FetchlocationItem(currentuser.uid, true))
-      //         .first;
-      // print("Location List: $chosenlocation");
       final paymentCards =
-      await checkoutservices.fetchpaymentcards(currentuser.uid, true);
-      final chosenpaymentcard =
-      paymentCards.isNotEmpty ? paymentCards.first : null;
+          await checkoutservices.fetchpaymentcards(currentuser.uid, true);
+      PaymentCardModel? chosenpaymentcard;
 
-// 🛡️ تحقق من المواقع
-      final locations =
-      await locationservices.FetchlocationItem(currentuser.uid, true);
-      final chosenlocation = locations.isNotEmpty ? locations.first : null;
-
-// إذا أحدهم مفقود، أظهر خطأ
-      if (chosenpaymentcard == null || chosenlocation == null) {
-        emit(CheckoutError(
-            Message: "Please select a payment method and location."));
-
+      if (paymentCards.isNotEmpty) {
+        chosenpaymentcard = paymentCards.first;
+      } else {
+        final allCards =
+            await checkoutservices.fetchpaymentcards(currentuser.uid, false);
+        if (allCards.isNotEmpty) {
+          chosenpaymentcard = allCards.first;
+        }
       }
+
+      final locations =
+          await locationservices.FetchlocationItem(currentuser.uid, true);
+      final chosenlocation = locations.isNotEmpty ? locations.first : null;
 
       emit(Checkoutlooded(
         cartitems: cartitems,

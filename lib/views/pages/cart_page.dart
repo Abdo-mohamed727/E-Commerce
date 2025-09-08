@@ -12,6 +12,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final size = MediaQuery.of(context).size;
 
     return Builder(builder: (context) {
       final cubit = BlocProvider.of<CartCubit>(context);
@@ -60,8 +61,6 @@ class CartPage extends StatelessWidget {
                         ),
                       ),
                       Divider(color: theme.dividerColor),
-
-                      // ✅ Subtotal / Total section
                       BlocBuilder<CartCubit, CartState>(
                         bloc: cubit,
                         buildWhen: (previous, current) =>
@@ -84,12 +83,11 @@ class CartPage extends StatelessWidget {
                                 amount: 10,
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: size.height * .02),
                                 child: Dash(
                                   dashColor: theme.dividerColor,
-                                  length:
-                                      MediaQuery.of(context).size.width * 0.8,
+                                  length: size.width * 0.8,
                                 ),
                               ),
                               _totalAndSubtotalWidget(
@@ -102,9 +100,6 @@ class CartPage extends StatelessWidget {
                           );
                         },
                       ),
-                      const SizedBox(height: 24),
-
-                      // ✅ Checkout Button
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: SizedBox(

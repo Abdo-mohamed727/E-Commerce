@@ -1,4 +1,5 @@
 import 'package:ecommerce_new/models/add_tocart_model.dart';
+import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CounterWidget extends StatelessWidget {
@@ -34,13 +35,13 @@ class CounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+      padding: EdgeInsets.symmetric(
+          horizontal: size.width * .01, vertical: size.height * .01),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Theme.of(context)
-              .colorScheme
-              .surfaceVariant, // بدل Appcolors.grey2
+          color: Appcolors.grey2,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(

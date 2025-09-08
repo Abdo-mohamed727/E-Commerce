@@ -13,6 +13,8 @@ class HomeTabview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<HomeCubit>(context);
+    final size = MediaQuery.of(context).size;
+
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: cubit,
       buildWhen: (previous, current) =>
@@ -22,7 +24,7 @@ class HomeTabview extends StatelessWidget {
       builder: (context, state) {
         if (state is Homeloading) {
           return const Center(
-            child: CircularProgressIndicator.adaptive(),
+            child: Center(child: CircularProgressIndicator.adaptive()),
           );
         } else if (state is Homeloaded) {
           return RefreshIndicator(
@@ -35,7 +37,8 @@ class HomeTabview extends StatelessWidget {
                     itemBuilder: (BuildContext context, int itemIndex,
                             int pageViewIndex) =>
                         Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 8.0),
+                      padding:
+                          EdgeInsetsDirectional.only(end: size.height * .01),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: CachedNetworkImage(
@@ -49,15 +52,15 @@ class HomeTabview extends StatelessWidget {
                       ),
                     ),
                     options: FlutterCarouselOptions(
-                      height: 200,
+                      height: size.height * .2,
                       autoPlay: true,
                       showIndicator: true,
                       slideIndicator: CircularWaveSlideIndicator(),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: size.height * .02),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .02),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -77,7 +80,7 @@ class HomeTabview extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: size.height * .02),
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -85,7 +88,7 @@ class HomeTabview extends StatelessWidget {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 10,
+                      mainAxisSpacing: 25,
                       crossAxisSpacing: 10,
                       childAspectRatio: 0.8,
                     ),

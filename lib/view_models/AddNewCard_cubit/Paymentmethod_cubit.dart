@@ -44,7 +44,7 @@ class PaymentmethodCubit extends Cubit<PaymentMethodState> {
             (element) => element.isChosen,
             orElse: () => paymentcards.first);
         SelectedId = chosenpayment.id;
-        selectedpayment=chosenpayment;
+        selectedpayment = chosenpayment;
 
         emit(PaymentMethodChosen(chosenpayment));
       }
@@ -65,19 +65,25 @@ class PaymentmethodCubit extends Cubit<PaymentMethodState> {
     }
   }
 
-  Future<void> confirmpaymentmethod() async {
+  Future<void> confirmPaymentMethod() async {
     emit(ConfirmpaymentLooding());
     try {
       final currentuser = authservices.currentuser();
-      final previouspaymentmethod =
+
+      final previousChosenPayments =
           await checkoutcervices.fetchpaymentcards(currentuser!.uid, true);
-      final previouschosenpayment =
-          previouspaymentmethod.first.copyWith(isChosen: false);
-      var chosenpaymentmethod = await checkoutcervices.fetchSinglepaymentcards(
+
+      for (var card in previousChosenPayments) {
+        final updated = card.copyWith(isChosen: false);
+        await checkoutcervices.updateCard(currentuser.uid, updated);
+      }
+
+      var chosenPaymentMethod = await checkoutcervices.fetchSinglepaymentcards(
           currentuser.uid, SelectedId!);
-      chosenpaymentmethod = chosenpaymentmethod.copyWith(isChosen: true);
-      await checkoutcervices.addNewCard(currentuser.uid, previouschosenpayment);
-      await checkoutcervices.addNewCard(currentuser.uid, chosenpaymentmethod);
+
+      chosenPaymentMethod = chosenPaymentMethod.copyWith(isChosen: true);
+      await checkoutcervices.updateCard(currentuser.uid, chosenPaymentMethod);
+
       emit(ConfirmpaymentSuccess());
     } catch (e) {
       emit(Confirmpaymentfailure(e.toString()));

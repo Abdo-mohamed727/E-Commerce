@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_new/models/location_item_model.dart';
+import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class LocationItemWidget extends StatelessWidget {
@@ -66,7 +67,7 @@ class LocationItemWidget extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: colors.surfaceVariant,
+                    backgroundColor: Appcolors.grey2,
                     child: ClipOval(
                       child: CachedNetworkImage(
                         imageUrl: location.imgUrl,

@@ -1,7 +1,5 @@
-import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:ecommerce_new/utils/app_router.dart';
 import 'package:ecommerce_new/utils/app_routes.dart';
-import 'package:ecommerce_new/utils/app_theme.dart';
 import 'package:ecommerce_new/view_models/auth_cubit/auth_cubit.dart';
 import 'package:ecommerce_new/view_models/favourite_cubit/favourite_cubit.dart';
 import 'package:ecommerce_new/view_models/home_cubit/home_cubit.dart';
@@ -55,10 +53,13 @@ class MyApp extends StatelessWidget {
                   return MaterialApp(
                     debugShowCheckedModeBanner: false,
                     title: 'E-Commerce',
-                    theme: AppTheme.lightTheme,
-                    darkTheme: AppTheme.darkTheme,
-                    themeMode: themestate.themeMode,
-                    //
+                    theme: ThemeData(
+                      colorScheme:
+                          ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                      useMaterial3: true,
+                    ),
+                    // darkTheme: AppTheme.darkTheme,
+
                     initialRoute: state is AuthDone
                         ? AppRouts.homeroute
                         : AppRouts.Loginroute,

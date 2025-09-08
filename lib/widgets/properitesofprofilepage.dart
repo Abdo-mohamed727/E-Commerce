@@ -15,6 +15,7 @@ class Properitesofprofilepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: ontap,
       child: DecoratedBox(
@@ -32,7 +33,7 @@ class Properitesofprofilepage extends StatelessWidget {
                 children: [
                   Icon(preicon),
                   SizedBox(
-                    width: 16,
+                    width: size.width * .03,
                   ),
                   Text(
                     title,
