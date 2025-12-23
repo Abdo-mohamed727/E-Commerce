@@ -1,7 +1,7 @@
 import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:ecommerce_new/utils/app_routes.dart';
-import 'package:ecommerce_new/view_models/AddNewCard_cubit/Paymentmethod_cubit.dart';
-import 'package:ecommerce_new/view_models/checkout_cubit/checkout_cubit.dart';
+import 'package:ecommerce_new/cubit/AddNewCard_cubit/Paymentmethod_cubit.dart';
+import 'package:ecommerce_new/cubit/checkout_cubit/checkout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

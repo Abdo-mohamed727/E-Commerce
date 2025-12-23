@@ -1,6 +1,6 @@
 import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:ecommerce_new/utils/app_routes.dart';
-import 'package:ecommerce_new/view_models/auth_cubit/auth_cubit.dart';
+import 'package:ecommerce_new/cubit/auth_cubit/auth_cubit.dart';
 import 'package:ecommerce_new/widgets/Socialmedia_button.dart';
 import 'package:ecommerce_new/widgets/label_with_textfield_new_card.dart';
 import 'package:ecommerce_new/widgets/main_button.dart';

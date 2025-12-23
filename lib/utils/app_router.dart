@@ -1,8 +1,8 @@
-import 'package:ecommerce_new/view_models/AddNewCard_cubit/Paymentmethod_cubit.dart';
-import 'package:ecommerce_new/view_models/auth_cubit/auth_cubit.dart';
-import 'package:ecommerce_new/view_models/chosen_location/chosen_location_cubit.dart';
-import 'package:ecommerce_new/view_models/product_details_cubit/product_details_cubit.dart';
-import 'package:ecommerce_new/view_models/search_cubit/search_cubit.dart';
+import 'package:ecommerce_new/cubit/AddNewCard_cubit/Paymentmethod_cubit.dart';
+import 'package:ecommerce_new/cubit/auth_cubit/auth_cubit.dart';
+import 'package:ecommerce_new/cubit/chosen_location/chosen_location_cubit.dart';
+import 'package:ecommerce_new/cubit/product_details_cubit/product_details_cubit.dart';
+import 'package:ecommerce_new/cubit/search_cubit/search_cubit.dart';
 import 'package:ecommerce_new/views/pages/Add_new_card_page.dart';
 import 'package:ecommerce_new/views/pages/Checkout_page.dart';
 import 'package:ecommerce_new/views/pages/Register_page.dart';

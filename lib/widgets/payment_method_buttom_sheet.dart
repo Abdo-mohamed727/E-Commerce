@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_new/utils/app_colors.dart';
 
 import 'package:ecommerce_new/utils/app_routes.dart';
-import 'package:ecommerce_new/view_models/AddNewCard_cubit/Paymentmethod_cubit.dart';
+import 'package:ecommerce_new/cubit/AddNewCard_cubit/Paymentmethod_cubit.dart';
 import 'package:ecommerce_new/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

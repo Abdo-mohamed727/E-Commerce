@@ -1,9 +1,10 @@
 import 'package:ecommerce_new/models/peoduct_item_model.dart';
 import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:ecommerce_new/utils/app_routes.dart';
-import 'package:ecommerce_new/view_models/auth_cubit/auth_cubit.dart';
-import 'package:ecommerce_new/view_models/cart_cubit/cart_cubit.dart';
-import 'package:ecommerce_new/view_models/home_cubit/home_cubit.dart';
+import 'package:ecommerce_new/cubit/auth_cubit/auth_cubit.dart';
+import 'package:ecommerce_new/cubit/cart_cubit/cart_cubit.dart';
+import 'package:ecommerce_new/cubit/favourite_cubit/favourite_cubit.dart';
+import 'package:ecommerce_new/cubit/home_cubit/home_cubit.dart';
 import 'package:ecommerce_new/views/pages/cart_page.dart';
 import 'package:ecommerce_new/views/pages/favourite_page.dart';
 import 'package:ecommerce_new/views/pages/home_page.dart';
@@ -173,6 +174,12 @@ class _CoustomButtomNavbarState extends State<CoustomButtomNavbar> {
                 setState(() {
                   currentindex = index;
                 });
+                // Reload favourites when switching to favourite tab (index 2)
+                if (index == 2) {
+                  final favouriteCubit =
+                      BlocProvider.of<FavouriteCubit>(context);
+                  favouriteCubit.getFavouriteProduct();
+                }
               },
 
               backgroundColor: Appcolors.white,

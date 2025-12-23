@@ -1,5 +1,5 @@
 import 'package:ecommerce_new/utils/app_colors.dart';
-import 'package:ecommerce_new/view_models/chosen_location/chosen_location_cubit.dart';
+import 'package:ecommerce_new/cubit/chosen_location/chosen_location_cubit.dart';
 import 'package:ecommerce_new/widgets/location_item_widget.dart';
 import 'package:ecommerce_new/widgets/main_button.dart';
 import 'package:flutter/material.dart';

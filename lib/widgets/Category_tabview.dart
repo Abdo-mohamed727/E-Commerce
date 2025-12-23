@@ -1,4 +1,6 @@
-import 'package:ecommerce_new/view_models/home_cubit/home_cubit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_new/cubit/home_cubit/home_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,71 +9,102 @@ class CategoryTabview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<HomeCubit>(context);
-    return Builder(builder: (context) {
-      return BlocBuilder<HomeCubit, HomeState>(
-          bloc: cubit,
-          buildWhen: (previous, current) =>
-              current is Homeloaded ||
-              current is Homeloading ||
-              current is HomeError,
-          builder: (context, state) {
-            if (state is HomeError) {
-              return const Center(
-                child: CircularProgressIndicator.adaptive(),
-              );
-            } else if (state is Homeloaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final category = state.categoryitems[index];
-
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.0),
-                        color: category.bgColor ??
-                            Theme.of(context).colorScheme.surface,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 32),
-                        child: Column(
-                          children: [
-                            Text(
-                              category.name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                    color: category.textColor ??
-                                        Theme.of(context).colorScheme.onSurface,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                            Text(
-                              '${category.productsCount.toString()} product',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .copyWith(
-                                    color: category.textColor ??
-                                        Theme.of(context).colorScheme.onSurface,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                          ],
+    return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) =>
+          current is Homeloaded ||
+          current is Homeloading ||
+          current is HomeError,
+      builder: (context, state) {
+        if (state is Homeloading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is HomeError) {
+          return Center(
+            child: Text(state.Message),
+          );
+        } else if (state is Homeloaded) {
+          final categories = state.categoryitems;
+          return ListView.builder(
+            itemCount: categories.length,
+            itemBuilder: (context, index) {
+              final category = categories[index];
+              return SizedBox(
+                height: 150,
+                width: double.infinity,
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl: category.imgurl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
-                itemCount: state.categoryitems.length,
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            gradient: LinearGradient(
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                              colors: [
+                                Colors.black.withOpacity(0.6),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16.0, top: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                category.name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                              Text(
+                                category.productsCount.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               );
-            } else {
-              return const SizedBox();
-            }
-          });
-    });
+            },
+          );
+        }
+        return const SizedBox.shrink();
+      },
+    );
   }
 }

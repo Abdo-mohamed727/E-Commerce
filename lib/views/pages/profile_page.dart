@@ -1,11 +1,11 @@
 import 'package:ecommerce_new/utils/app_routes.dart';
-import 'package:ecommerce_new/view_models/auth_cubit/auth_cubit.dart';
+import 'package:ecommerce_new/cubit/auth_cubit/auth_cubit.dart';
 import 'package:ecommerce_new/widgets/main_button.dart';
 import 'package:ecommerce_new/widgets/properitesofprofilepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../view_models/theme_cubit/theme_cubit.dart';
+import '../../cubit/theme_cubit/theme_cubit.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,7 +15,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  bool _check = false;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -68,16 +67,75 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(
                     height: size.height * .02,
                   ),
-                  Properitesofprofilepage(
-                      sufexicon: Icons.arrow_drop_down_outlined,
-                      // sufexicon: _check ? Icons.toggle_on : Icons.toggle_off,
-                      preicon: Icons.chevron_right,
-                      title: 'Dark Theme',
-                      ontap: () {
-                        _check
-                            ? themecubit.selectTheme(ThemeModeState.light)
-                            : themecubit.selectTheme(ThemeModeState.dark);
-                      }),
+                  BlocBuilder<ThemeCubit, ThemeState>(
+                    builder: (context, themeState) {
+                      final currentTheme = themecubit.currentThemeMode;
+                      String themeLabel;
+                      switch (currentTheme) {
+                        case ThemeModeState.light:
+                          themeLabel = 'Light';
+                          break;
+                        case ThemeModeState.dark:
+                          themeLabel = 'Dark';
+                          break;
+                        case ThemeModeState.system:
+                          themeLabel = 'System';
+                          break;
+                      }
+
+                      return Properitesofprofilepage(
+                        sufexicon: Icons.chevron_right,
+                        preicon: Icons.brightness_6,
+                        title: 'Theme: $themeLabel',
+                        ontap: () {
+                          showDialog(
+                            context: context,
+                            builder: (dialogContext) => AlertDialog(
+                              title: Text('Select Theme'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  RadioListTile<ThemeModeState>(
+                                    title: Text('Light'),
+                                    value: ThemeModeState.light,
+                                    groupValue: currentTheme,
+                                    onChanged: (value) {
+                                      if (value != null) {
+                                        themecubit.selectTheme(value);
+                                        Navigator.pop(dialogContext);
+                                      }
+                                    },
+                                  ),
+                                  RadioListTile<ThemeModeState>(
+                                    title: Text('Dark'),
+                                    value: ThemeModeState.dark,
+                                    groupValue: currentTheme,
+                                    onChanged: (value) {
+                                      if (value != null) {
+                                        themecubit.selectTheme(value);
+                                        Navigator.pop(dialogContext);
+                                      }
+                                    },
+                                  ),
+                                  RadioListTile<ThemeModeState>(
+                                    title: Text('System'),
+                                    value: ThemeModeState.system,
+                                    groupValue: currentTheme,
+                                    onChanged: (value) {
+                                      if (value != null) {
+                                        themecubit.selectTheme(value);
+                                        Navigator.pop(dialogContext);
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
                   SizedBox(
                     height: size.height * .02,
                   ),

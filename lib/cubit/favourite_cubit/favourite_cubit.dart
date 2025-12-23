@@ -10,7 +10,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   final favouriteservice = Favouriteservicesimp();
   final authservices = Authservicesimp();
 
-  Future<void> Getfavouriteproduct() async {
+  Future<void> getFavouriteProduct() async {
     emit(FavouriteLooding());
     try {
       final currentuser = authservices.currentuser();
@@ -29,7 +29,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       await favouriteservice.Removefavourite(currentuser!.uid, productId);
       emit(FavouriteRemoved(productId));
       final favouriteproducts =
-          await favouriteservice.GetFavourites(currentuser!.uid);
+          await favouriteservice.GetFavourites(currentuser.uid);
       emit(FavouriteLooded(favouriteproducts));
     } catch (e) {
       emit(FavouriteremoveError(e.toString(), productId));

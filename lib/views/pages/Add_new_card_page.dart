@@ -1,4 +1,4 @@
-import 'package:ecommerce_new/view_models/AddNewCard_cubit/Paymentmethod_cubit.dart';
+import 'package:ecommerce_new/cubit/AddNewCard_cubit/Paymentmethod_cubit.dart';
 import 'package:ecommerce_new/widgets/label_with_textfield_new_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

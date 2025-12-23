@@ -1,11 +1,10 @@
-import 'package:ecommerce_new/models/category_Tab_model.dart';
 import 'package:ecommerce_new/services/auth_services.dart';
 import 'package:ecommerce_new/services/favourite_services.dart';
 import 'package:ecommerce_new/services/home_data_services.dart';
-import 'package:ecommerce_new/view_models/favourite_cubit/favourite_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecommerce_new/models/carsoul_item_model.dart';
 import 'package:ecommerce_new/models/peoduct_item_model.dart';
+import 'package:ecommerce_new/models/category_Tab_model.dart';
 
 part 'home_state.dart';
 
@@ -21,7 +20,7 @@ class HomeCubit extends Cubit<HomeState> {
       final currentUser = authservices.currentuser();
       final products = await homeservices.fetchproducts();
       final caurselitems = await homeservices.fetchcarsoulitem();
-      final categortyitems = await homeservices.fetchcategoryitems();
+      final categories = await homeservices.fetchcategories();
       final favouriteproducts =
           await favouriteservices.GetFavourites(currentUser!.uid);
 
@@ -34,7 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(Homeloaded(
           carouselItem: caurselitems,
           productItem: finalproducts,
-          categoryitems: categortyitems));
+          categoryitems: categories));
     } catch (e) {
       emit(HomeError(Message: e.toString()));
     }

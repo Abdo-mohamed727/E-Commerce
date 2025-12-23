@@ -1,9 +1,10 @@
 import 'package:ecommerce_new/utils/app_router.dart';
 import 'package:ecommerce_new/utils/app_routes.dart';
-import 'package:ecommerce_new/view_models/auth_cubit/auth_cubit.dart';
-import 'package:ecommerce_new/view_models/favourite_cubit/favourite_cubit.dart';
-import 'package:ecommerce_new/view_models/home_cubit/home_cubit.dart';
-import 'package:ecommerce_new/view_models/theme_cubit/theme_cubit.dart';
+import 'package:ecommerce_new/utils/app_theme.dart';
+import 'package:ecommerce_new/cubit/auth_cubit/auth_cubit.dart';
+import 'package:ecommerce_new/cubit/favourite_cubit/favourite_cubit.dart';
+import 'package:ecommerce_new/cubit/home_cubit/home_cubit.dart';
+import 'package:ecommerce_new/cubit/theme_cubit/theme_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) {
             final cubit = FavouriteCubit();
-            cubit.Getfavouriteproduct();
+            cubit.getFavouriteProduct();
             return cubit;
           },
         ),
@@ -53,13 +54,11 @@ class MyApp extends StatelessWidget {
                   return MaterialApp(
                     debugShowCheckedModeBanner: false,
                     title: 'E-Commerce',
-                    theme: ThemeData(
-                      colorScheme:
-                          ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                      useMaterial3: true,
-                    ),
-                    // darkTheme: AppTheme.darkTheme,
-
+                    theme: AppTheme.lightTheme,
+                    darkTheme: AppTheme.darkTheme,
+                    themeMode: themestate is ThemeModeChanges
+                        ? themestate.themeMode
+                        : ThemeMode.system,
                     initialRoute: state is AuthDone
                         ? AppRouts.homeroute
                         : AppRouts.Loginroute,

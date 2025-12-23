@@ -7,7 +7,7 @@ import 'package:ecommerce_new/utils/api_pathes.dart';
 abstract class Homeservices {
   Future<List<ProductItemModel>> fetchproducts();
   Future<List<HomeCarouselItemModel>> fetchcarsoulitem();
-  Future<List<CategoryModel>> fetchcategoryitems();
+  Future<List<CategoryModel>> fetchcategories();
 }
 
 class Homeservicesimp implements Homeservices {
@@ -16,10 +16,12 @@ class Homeservicesimp implements Homeservices {
   @override
   Future<List<ProductItemModel>> fetchproducts() async {
     final result = await firestoreservices.getCollection<ProductItemModel>(
-        path: ApiPathes.products(),
-        builder: (data, doucmentId) => ProductItemModel.fromMap(
-              data,
-            ));
+      path: ApiPathes.products(),
+      builder: (data, documentId) {
+        data['id'] = documentId;
+        return ProductItemModel.fromMap(data);
+      },
+    );
 
     return result;
   }
@@ -27,21 +29,25 @@ class Homeservicesimp implements Homeservices {
   @override
   Future<List<HomeCarouselItemModel>> fetchcarsoulitem() async {
     final result = await firestoreservices.getCollection<HomeCarouselItemModel>(
-        path: ApiPathes.carsoul(),
-        builder: (data, doucmentId) => HomeCarouselItemModel.fromMap(
-              data,
-            ));
+      path: ApiPathes.carsoul(),
+      builder: (data, documentId) {
+        data['id'] = documentId;
+        return HomeCarouselItemModel.fromMap(data);
+      },
+    );
 
     return result;
   }
 
   @override
-  Future<List<CategoryModel>> fetchcategoryitems() async {
+  Future<List<CategoryModel>> fetchcategories() async {
     final result = await firestoreservices.getCollection<CategoryModel>(
-        path: ApiPathes.category(),
-        builder: (data, doucmentId) => CategoryModel.fromMap(
-              data,
-            ));
+      path: ApiPathes.categories(),
+      builder: (data, documentId) {
+        data['id'] = documentId;
+        return CategoryModel.fromMap(data);
+      },
+    );
 
     return result;
   }

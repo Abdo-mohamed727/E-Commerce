@@ -1,6 +1,6 @@
 import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:ecommerce_new/utils/app_routes.dart';
-import 'package:ecommerce_new/view_models/favourite_cubit/favourite_cubit.dart';
+import 'package:ecommerce_new/cubit/favourite_cubit/favourite_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,9 +18,15 @@ class FavouritePage extends StatelessWidget {
       child: BlocBuilder<FavouriteCubit, FavouriteState>(
         bloc: favoritecubit,
         buildWhen: (previous, current) =>
-            current is FavouriteLooded || current is FavouriteError,
+            current is FavouriteLooded ||
+            current is FavouriteError ||
+            current is FavouriteLooding,
         builder: (context, state) {
-          if (state is FavouriteError) {
+          if (state is FavouriteLooding) {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          } else if (state is FavouriteError) {
             return Center(
               child: Text(
                 'Failed to load favourites: ${state.errormessage}',
@@ -36,7 +42,7 @@ class FavouritePage extends StatelessWidget {
             }
             return RefreshIndicator(
               onRefresh: () async {
-                await favoritecubit.Getfavouriteproduct();
+                await favoritecubit.getFavouriteProduct();
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * .02),
@@ -51,7 +57,7 @@ class FavouritePage extends StatelessWidget {
                     return InkWell(
                       onTap: () => Navigator.of(context).pushNamed(
                           AppRouts.ProductDetailsroute,
-                          arguments: state.favouriteproduct),
+                          arguments: product.id),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),

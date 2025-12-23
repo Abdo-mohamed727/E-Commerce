@@ -17,7 +17,7 @@ class ApiPathes {
       'users/$userID/favourites/';
 
   static String products() => 'products/';
-  static String category() => 'categories/';
+  static String categories() => 'categories/';
   static String carsoul() => 'carsoul/';
 
   static String product(String productId) => 'products/$productId';

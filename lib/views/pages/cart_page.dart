@@ -1,5 +1,5 @@
 import 'package:ecommerce_new/utils/app_routes.dart';
-import 'package:ecommerce_new/view_models/cart_cubit/cart_cubit.dart';
+import 'package:ecommerce_new/cubit/cart_cubit/cart_cubit.dart';
 import 'package:ecommerce_new/widgets/cart_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
