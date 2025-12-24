@@ -8,4 +8,5 @@ class AppRouts {
   static const String Checkoutroute = '/checkoutpage';
   static const String AddNewCardRoute = '/Add_New_card';
   static const String ChosenaddressRoute = '/chosen_address';
+  static const String CategoryProductsRoute = '/category_products';
 }

@@ -1,4 +1,3 @@
-import 'package:ecommerce_new/models/peoduct_item_model.dart';
 import 'package:ecommerce_new/utils/app_colors.dart';
 import 'package:ecommerce_new/utils/app_routes.dart';
 import 'package:ecommerce_new/cubit/auth_cubit/auth_cubit.dart';
@@ -9,7 +8,6 @@ import 'package:ecommerce_new/views/pages/cart_page.dart';
 import 'package:ecommerce_new/views/pages/favourite_page.dart';
 import 'package:ecommerce_new/views/pages/home_page.dart';
 import 'package:ecommerce_new/views/pages/profile_page.dart';
-import 'package:ecommerce_new/views/pages/search_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,26 +61,26 @@ class _CoustomButtomNavbarState extends State<CoustomButtomNavbar> {
       ItemConfig(
         icon: Icon(CupertinoIcons.home),
         title: ("Home"),
-        // activeColorPrimary: Appcolors.primary,
-        // inactiveColorPrimary: Appcolors.grey,
+        activeForegroundColor: Appcolors.primary,
+        inactiveForegroundColor: Appcolors.grey,
       ),
       ItemConfig(
         icon: Icon(CupertinoIcons.cart),
         title: ("Cart"),
-        // activeColorPrimary: Appcolors.primary,
-        // inactiveColorPrimary: Appcolors.grey,
+        activeForegroundColor: Appcolors.primary,
+        inactiveForegroundColor: Appcolors.grey,
       ),
       ItemConfig(
         icon: Icon(CupertinoIcons.heart),
         title: ("Favourite"),
-        // activeColorPrimary: Appcolors.primary,
-        // inactiveColorPrimary: Appcolors.grey,
+        activeForegroundColor: Appcolors.primary,
+        inactiveForegroundColor: Appcolors.grey,
       ),
       ItemConfig(
         icon: Icon(CupertinoIcons.person),
         title: ("Profile"),
-        // activeColorPrimary: Appcolors.primary,
-        // inactiveColorPrimary: Appcolors.grey,
+        activeForegroundColor: Appcolors.primary,
+        inactiveForegroundColor: Appcolors.grey,
       ),
     ];
   }

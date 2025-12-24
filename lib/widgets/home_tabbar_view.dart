@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_new/models/peoduct_item_model.dart';
-import 'package:ecommerce_new/utils/app_routes.dart';
+
 import 'package:ecommerce_new/cubit/home_cubit/home_cubit.dart';
+import 'package:ecommerce_new/cubit/product_details_cubit/product_details_cubit.dart';
+import 'package:ecommerce_new/views/pages/product_details_page.dart';
 import 'package:ecommerce_new/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class HomeTabview extends StatelessWidget {
   const HomeTabview({super.key});
@@ -93,14 +96,22 @@ class HomeTabview extends StatelessWidget {
                       childAspectRatio: 0.8,
                     ),
                     itemBuilder: (context, index) {
+                      final product = state.productItem[index];
                       return InkWell(
-                        onTap: () => Navigator.of(context, rootNavigator: true)
-                            .pushNamed(
-                          AppRouts.ProductDetailsroute,
-                          arguments: state.productItem[index].id,
+                        onTap: () => pushScreen(
+                          context,
+                          screen: BlocProvider(
+                            create: (_) {
+                              final cubit = ProductDetailsCubit();
+                              cubit.GetproductDetails(product.id);
+                              return cubit;
+                            },
+                            child: ProductDetailsPage(productId: product.id),
+                          ),
+                          withNavBar: false,
                         ),
                         child: ProductItem(
-                          prodectitem: state.productItem[index],
+                          prodectitem: product,
                         ),
                       );
                     },

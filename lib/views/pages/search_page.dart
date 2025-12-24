@@ -1,8 +1,10 @@
 import 'package:ecommerce_new/utils/app_colors.dart';
-import 'package:ecommerce_new/utils/app_routes.dart';
+import 'package:ecommerce_new/cubit/product_details_cubit/product_details_cubit.dart';
+import 'package:ecommerce_new/views/pages/product_details_page.dart';
 import 'package:ecommerce_new/cubit/search_cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -60,9 +62,19 @@ class _SearchPageState extends State<SearchPage> {
                             borderRadius: BorderRadius.circular(16)),
                         child: ListTile(
                           onTap: () {
-                            Navigator.of(context).pushNamed(
-                                AppRouts.ProductDetailsroute,
-                                arguments: products.id);
+                            pushScreen(
+                              context,
+                              screen: BlocProvider(
+                                create: (_) {
+                                  final cubit = ProductDetailsCubit();
+                                  cubit.GetproductDetails(products.id);
+                                  return cubit;
+                                },
+                                child:
+                                    ProductDetailsPage(productId: products.id),
+                              ),
+                              withNavBar: false,
+                            );
                           },
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(products.imgurl),

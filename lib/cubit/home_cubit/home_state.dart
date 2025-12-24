@@ -22,6 +22,20 @@ final class HomeError extends HomeState {
   final String Message;
 }
 
+final class getproductsbycategoryloading extends HomeState {}
+
+final class getproductsbycategorysuccess extends HomeState {
+  final List<ProductItemModel> productItem;
+
+  getproductsbycategorysuccess({required this.productItem});
+}
+
+final class getproductsbycategoryfailure extends HomeState {
+  final String message;
+
+  getproductsbycategoryfailure(this.message);
+}
+
 final class setfavouritelooding extends HomeState {
   final String ProductId;
 

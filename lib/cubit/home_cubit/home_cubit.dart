@@ -1,6 +1,7 @@
 import 'package:ecommerce_new/services/auth_services.dart';
 import 'package:ecommerce_new/services/favourite_services.dart';
 import 'package:ecommerce_new/services/home_data_services.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecommerce_new/models/carsoul_item_model.dart';
 import 'package:ecommerce_new/models/peoduct_item_model.dart';
@@ -57,6 +58,27 @@ class HomeCubit extends Cubit<HomeState> {
           isfavourite: !isfavourite, ProductId: product.id));
     } catch (e) {
       emit(setfavouritefailure(e.toString(), product.id));
+    }
+  }
+
+  Future<void> getproductsbycategory(String category) async {
+    emit(getproductsbycategoryloading());
+    try {
+      final currentUser = authservices.currentuser();
+      final products =
+          await homeservices.fetchProductsByCategory(category.trim());
+      final favouriteproducts =
+          await favouriteservices.GetFavourites(currentUser!.uid);
+
+      final List<ProductItemModel> finalproducts = products.map((product) {
+        final isfavourite =
+            favouriteproducts.any((item) => item.id == product.id);
+        return product.copyWith(isFavorite: isfavourite);
+      }).toList();
+
+      emit(getproductsbycategorysuccess(productItem: finalproducts));
+    } catch (e) {
+      emit(getproductsbycategoryfailure(e.toString()));
     }
   }
 }

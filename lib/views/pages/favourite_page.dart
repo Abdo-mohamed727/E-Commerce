@@ -1,8 +1,11 @@
+import 'package:ecommerce_new/cubit/home_cubit/home_cubit.dart';
 import 'package:ecommerce_new/utils/app_colors.dart';
-import 'package:ecommerce_new/utils/app_routes.dart';
+import 'package:ecommerce_new/cubit/product_details_cubit/product_details_cubit.dart';
+import 'package:ecommerce_new/views/pages/product_details_page.dart';
 import 'package:ecommerce_new/cubit/favourite_cubit/favourite_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class FavouritePage extends StatelessWidget {
   const FavouritePage({super.key});
@@ -55,9 +58,18 @@ class FavouritePage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final product = favouriteproducts[index];
                     return InkWell(
-                      onTap: () => Navigator.of(context).pushNamed(
-                          AppRouts.ProductDetailsroute,
-                          arguments: product.id),
+                      onTap: () => pushScreen(
+                        context,
+                        screen: BlocProvider(
+                          create: (_) {
+                            final cubit = ProductDetailsCubit();
+                            cubit.GetproductDetails(product.id);
+                            return cubit;
+                          },
+                          child: ProductDetailsPage(productId: product.id),
+                        ),
+                        withNavBar: false,
+                      ),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
@@ -98,6 +110,9 @@ class FavouritePage extends StatelessWidget {
                                   onPressed: () async {
                                     await favoritecubit
                                         .removefavourite(product.id);
+                                    await context
+                                        .read<HomeCubit>()
+                                        .getproducts();
                                   },
                                   icon: const Icon(
                                     Icons.favorite,

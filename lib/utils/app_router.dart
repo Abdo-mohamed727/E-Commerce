@@ -1,4 +1,5 @@
 import 'package:ecommerce_new/cubit/AddNewCard_cubit/Paymentmethod_cubit.dart';
+import 'package:ecommerce_new/cubit/home_cubit/home_cubit.dart';
 import 'package:ecommerce_new/cubit/auth_cubit/auth_cubit.dart';
 import 'package:ecommerce_new/cubit/chosen_location/chosen_location_cubit.dart';
 import 'package:ecommerce_new/cubit/product_details_cubit/product_details_cubit.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce_new/cubit/search_cubit/search_cubit.dart';
 import 'package:ecommerce_new/views/pages/Add_new_card_page.dart';
 import 'package:ecommerce_new/views/pages/Checkout_page.dart';
 import 'package:ecommerce_new/views/pages/Register_page.dart';
+import 'package:ecommerce_new/views/pages/category_products_page.dart';
 import 'package:ecommerce_new/views/pages/chosen_address.dart';
 import 'package:ecommerce_new/views/pages/coustom_buttom_navbar.dart';
 import 'package:ecommerce_new/views/pages/login_page.dart';
@@ -78,14 +80,23 @@ class AppRouter {
       case AppRouts.ProductDetailsroute:
         final String productId = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) {
+          builder: (context) => BlocProvider(
+            create: (_) {
               final cubit = ProductDetailsCubit();
               cubit.GetproductDetails(productId);
 
               return cubit;
             },
             child: ProductDetailsPage(productId: productId),
+          ),
+          settings: settings,
+        );
+      case AppRouts.CategoryProductsRoute:
+        final cubit = settings.arguments as HomeCubit;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: cubit,
+            child: CategoryProductsPage(),
           ),
           settings: settings,
         );
